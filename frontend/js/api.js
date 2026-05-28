@@ -6,7 +6,7 @@
 window.App = window.App || {};
 
 window.App.api = (function () {
-    const API_BASE = 'http://localhost:3000/api/temas';
+    const API_BASE = 'hhttps://api-temas.onrender.com/api/temas';
 
     /**
      * Normaliza un item recibido del servidor.
