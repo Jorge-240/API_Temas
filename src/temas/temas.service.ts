@@ -18,7 +18,7 @@ export class TemasService {
     // GET /api/temas
     async findAll(): Promise<Tema[]> {
         const rows = await this.temaRepository.query(
-            `SELECT id, nombre AS tema FROM public.tema ORDER BY id ASC`,
+            `SELECT id, nombre_tema AS tema FROM public.tema ORDER BY id ASC`,
         );
         return rows;
     }
@@ -26,7 +26,7 @@ export class TemasService {
     // GET /api/temas/:id
     async findOne(id: number): Promise<Tema> {
         const rows = await this.temaRepository.query(
-            `SELECT id, nombre AS tema FROM public.tema WHERE id = $1`,
+            `SELECT id, nombre_tema AS tema FROM public.tema WHERE id = $1`,
             [id],
         );
         if (!rows || rows.length === 0) {
@@ -38,7 +38,7 @@ export class TemasService {
     // POST /api/temas
     async create(createTemaDto: CreateTemaDto): Promise<Tema> {
         const rows = await this.temaRepository.query(
-            `INSERT INTO public.tema (nombre) VALUES ($1) RETURNING id, nombre AS tema`,
+            `INSERT INTO public.tema (nombre_tema) VALUES ($1) RETURNING id, nombre_tema AS tema`,
             [createTemaDto.tema],
         );
         return rows[0];
@@ -50,7 +50,7 @@ export class TemasService {
         await this.findOne(id);
 
         const rows = await this.temaRepository.query(
-            `UPDATE public.tema SET nombre = $1 WHERE id = $2 RETURNING id, nombre AS tema`,
+            `UPDATE public.tema SET nombre_tema = $1 WHERE id = $2 RETURNING id, nombre_tema AS tema`,
             [updateTemaDto.tema, id],
         );
         return rows[0];
