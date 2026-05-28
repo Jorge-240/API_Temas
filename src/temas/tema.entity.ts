@@ -5,6 +5,6 @@ export class Tema {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({ name: 'tema' })
+    @Column({ name: 'nombre' })
     tema: string;
 }
