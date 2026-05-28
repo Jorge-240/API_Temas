@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tema Manager — Panel de Control</title>
+  <meta name="description" content="Gestiona tus temas: crea, edita y elimina entradas en tu base de datos." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Fondo animado -->
+  <div class="bg-orbs" aria-hidden="true">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">
+        <span class="logo-icon">⬡</span>
+        <span class="logo-text">Tema<span class="logo-accent">Manager</span></span>
+      </div>
+      <div class="header-meta">
+        <span class="status-dot" id="statusDot"></span>
+        <span class="status-label" id="statusLabel">Conectando...</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- Stats bar -->
+    <section class="stats-bar" aria-label="Estadísticas">
+      <div class="stat-card">
+        <span class="stat-value" id="totalCount">—</span>
+        <span class="stat-label">Total Temas</span>
+      </div>
+      <div class="stat-card highlight">
+        <span class="stat-value neon-green" id="lastAdded">—</span>
+        <span class="stat-label">Último Agregado</span>
+      </div>
+    </section>
+
+    <!-- Create / Edit Form -->
+    <section class="card form-section" aria-label="Formulario">
+      <div class="card-header">
+        <h2 class="card-title" id="formTitle">
+          <span class="title-icon">✦</span> Nuevo Tema
+        </h2>
+        <button class="btn-icon" id="cancelEditBtn" style="display:none;" title="Cancelar edición" aria-label="Cancelar edición">✕</button>
+      </div>
+
+      <form id="temaForm" novalidate>
+        <div class="input-group">
+          <label class="input-label" for="temaInput">Nombre del tema</label>
+          <div class="input-wrapper">
+            <input
+              type="text"
+              id="temaInput"
+              class="input-field"
+              placeholder="Ej: Inteligencia Artificial..."
+              maxlength="255"
+              required
+              autocomplete="off"
+            />
+            <span class="input-counter" id="inputCounter">0/255</span>
+          </div>
+          <p class="input-error" id="inputError" role="alert"></p>
+        </div>
+        <button type="submit" class="btn-primary" id="submitBtn">
+          <span class="btn-icon-left">+</span>
+          <span id="submitBtnText">Crear Tema</span>
+        </button>
+      </form>
+    </section>
+
+    <!-- Search -->
+    <section class="search-section" aria-label="Búsqueda">
+      <div class="search-wrapper">
+        <span class="search-icon">⌕</span>
+        <input
+          type="search"
+          id="searchInput"
+          class="search-input"
+          placeholder="Buscar tema..."
+          autocomplete="off"
+        />
+      </div>
+    </section>
+
+    <!-- List -->
+    <section class="card list-section" aria-label="Lista de temas">
+      <div class="card-header">
+        <h2 class="card-title">
+          <span class="title-icon">◈</span> Temas
+        </h2>
+        <button class="btn-refresh" id="refreshBtn" title="Actualizar lista" aria-label="Actualizar lista">
+          <span id="refreshIcon">↻</span>
+        </button>
+      </div>
+
+      <div id="listState" class="list-state hidden">
+        <div class="spinner" aria-label="Cargando..."></div>
+        <p class="list-state-text" id="listStateText">Cargando temas...</p>
+      </div>
+
+      <ul id="temaList" class="tema-list" aria-live="polite" aria-label="Lista de temas"></ul>
+    </section>
+
+  </main>
+
+  <!-- Toast container -->
+  <div id="toastContainer" class="toast-container" aria-live="assertive" aria-atomic="true"></div>
+
+  <!-- Modal de confirmación -->
+  <div id="confirmModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle" style="display:none;">
+    <div class="modal">
+      <div class="modal-icon">⚠</div>
+      <h3 class="modal-title" id="modalTitle">Eliminar tema</h3>
+      <p class="modal-desc" id="modalDesc">¿Estás seguro de que deseas eliminar este tema?</p>
+      <div class="modal-actions">
+        <button class="btn-secondary" id="modalCancelBtn">Cancelar</button>
+        <button class="btn-danger" id="modalConfirmBtn">Eliminar</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
